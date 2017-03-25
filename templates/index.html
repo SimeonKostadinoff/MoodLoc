@@ -1,0 +1,21 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MoodLoc</title>
+</head>
+<body>
+<div id="home"></div>
+
+
+<!-- jQuery -->
+<script src="{% static '/js/jquery.min.js' %}"></script>
+
+<!-- React -->
+<script src="{% static '/build/bundles/local/vendors.js' %}"></script>
+<script src="{% static '/build/bundles/local/home.js' %}"></script>
+
+</body>
+</html>
