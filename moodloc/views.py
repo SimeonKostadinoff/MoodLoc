@@ -8,7 +8,7 @@ def tweets(request):
 
 
 def base_page(request):
-        '''Token goes here'''
+        '''Tokens go here'''
         auth = tweepy.OAuthHandler('', '')
         auth.set_access_token('', '')
 
