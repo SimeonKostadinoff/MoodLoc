@@ -28,15 +28,18 @@ export function loadLocations() {
         let state = getState();
         let { search } = state.locations;
 
-        let url = `url-goes-here`;
+        let url = `http://127.0.0.1:8000/classify/?sentance=`;
         if(search) {
             url+=`${search}`
+        } else {
+            url+="Manchester"
         }
 
-        /*$.get(url, data => {
+        $.get(url, data => {
+            console.log("DATA: ", data);
             dispatch(showLocationsResult(data));
-        });*/
-        let data = [{
+        });
+        /*let data = [{
             lat: 53.690201 + parseInt(search),
             lng: -1.757813,
             search: search,
@@ -49,7 +52,7 @@ export function loadLocations() {
             search: search,
             percentage: 0.3,
             key: '1',
-        }];
-        dispatch(showLocationsResult(data));
+        }];*/
+        //dispatch(showLocationsResult(data));
     }
 }

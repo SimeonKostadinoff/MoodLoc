@@ -19,9 +19,9 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
     defaultZoom={6}
     defaultCenter={{ lat: 53.690201, lng: -1.757813 }}
   >
-      {props.data.map((lat, lng, search, percentage, index) =>
-      <Marker position={new google.maps.LatLng(lat, lng)} icon={'https://thumb.ibb.co/nAjjfa/8m_OKjql_Imgur.png'} opacity={percentage} key={index}/>
-    )}
+      {/*{props.data.map(value =>
+      <Marker position={new google.maps.LatLng(value.split(',')[0], value.split(',')[0])} icon={'https://thumb.ibb.co/nAjjfa/8m_OKjql_Imgur.png'} key={value.split(',')[0]}/>
+    )}*/}
   </GoogleMap>
 ));
 
@@ -30,6 +30,7 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
  */
 export default class MapComponent extends Component {
     constructor(props){
+        console.log("PROPS: ", props);
         super(props)
     }
   render() {

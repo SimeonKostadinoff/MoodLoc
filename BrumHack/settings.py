@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'moodloc.apps.MoodlocConfig',
     'webpack_loader',
     'BrumHack',
     'moodloc',
-    'neural_network'
 ]
 
 MIDDLEWARE = [

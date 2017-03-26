@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import tweepy
 import json, requests
+from BrumHack.classifier import final_classify
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -29,3 +31,13 @@ def tweets(request, location):
 
 def base_page(request):
         return render(request, 'index.html') # render home page
+
+
+def main(request):
+   print("here")
+   sentence = request.GET.get('sentance')  # get the 'org_id' passed as get request
+   result = ''
+   if sentence:
+       result = final_classify(sentence)
+
+   return JsonResponse({'result': result})
