@@ -32,7 +32,7 @@ export function loadLocations() {
         if(search) {
             url+=`${search}`
         } else {
-            url+="Manchester"
+            url+=""
         }
 
         $.get(url, data => {
