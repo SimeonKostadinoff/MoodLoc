@@ -68,7 +68,7 @@ def think(sentence, show_details=False):
 # probability threshold
 ERROR_THRESHOLD = 0
 # load our calculated synapse values
-synapse_file = 'synapses.json'
+synapse_file = 'result.json'
 with open(synapse_file) as data_file:
     synapse = json.load(data_file)
     classes = np.asarray(synapse['classes'])

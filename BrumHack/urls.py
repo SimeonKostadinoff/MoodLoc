@@ -20,5 +20,5 @@ from moodloc import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tweets/(?P<location>[\w\-]+)/$', views.tweets),
-    url(r'^', views.base_page)
+    url(r'^classify/', views.main)
 ]

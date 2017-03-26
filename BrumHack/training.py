@@ -21,209 +21,243 @@ stemmer = LancasterStemmer();
 savedArray = []
 #for _ in range(100):
 
+
+#[7:24]
+#()
 #
 #
-# [7:25]
-# (51.516314, -0.006180)
-#
-# [7:25]
-# (51.472709, -0.268478)
 #
 # [7:25]
-# (51.558170, -0.139389)
+# ()
 #
 # [7:25]
-# (51.381946, -0.094070)
+# ()
 #
 # [7:26]
 # Manchester
 #
 # [7:26]
-# (53.480759, -2.242631)
+# ()
+#
+#)
+#
+# [
+#
+
 #
 # [7:26]
-# (53.432741, -2.151260)
-#
-# [7:26]
-# (53.522643, -2.323608)
-#
-# [7:26]
-# (53.445420, -2.313309)
-#
-# [7:26]
-# (53.517336, -2.151947)
+# ()
 #
 # [7:26]
 # Edinburgh
 #
 # [7:27]
-# (55.953252, -3.188267)
+# ()
 #
 # [7:27]
-# (55.942183, -2.883911)
+# ()
 #
 # [7:27]
-# (56.126323, -3.515625)
+# ()
 #
 # [7:27]
-# (55.788060, -3.350830)
+# ()
 #
 # [7:27]
-# (55.911287, -3.067932)
+# # ()
+# (52.486243, -1.890401)
+#
+# [7:24]
+# (52.471122, -1.912994)
+#
+#
+# (52.441990, -1.935825)
+#
+# [7:24]
+# (52.445742, -1.888704)
+#
+# (52.481826, -1.756439)
 
-coordinate = '51.508538, -0.129905'
+# coordinate = '55.911287,-3.067932'
+#
+# reader = getTweetsTopics(5, coordinate)
+#
+# with open('output20.json', 'w') as outfile:
+#     json.dump(reader, outfile, indent=2)
 
-reader = getTweetsTopics(5, coordinate)
+finalJson = []
 
-with open('output1.json', 'w') as outfile:
-    json.dump(reader, outfile, indent=2)
 
-# savedArray.append([coordinate, reader])
+with open('output1.json') as data_file:
+ jsonFile = json.load(data_file)
+ finalJson = finalJson + [([jsonFile] + ['52.486243,-1.890401'])]
 
-# for a in savedArray:
-#     for row in a[1]:
-#         if row[0] != '' and row[1] != '':
-#             training_data.append({'class': a[0], 'topic': row[0]})
+with open('output2.json') as data_file:
+ jsonFile = json.load(data_file)
+ finalJson = finalJson + [([jsonFile] + ['52.471122, -1.912994'])]
 
-# # loop through each topic in our training data
-# for pattern in training_data:
-#     # tokenize each word in the topic
-#     w = nltk.word_tokenize(pattern['topic'])
-#     # add to our words list
-#     words.extend(w)
-#     # add to documents in our corpus
-#     documents.append((w, pattern['class']))
-#     # add to our classes list
-#     if pattern['class'] not in classes:
-#         classes.append(pattern['class'])
-#
-# # stem and lower each word and remove duplicates
-# words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
-# words = list(set(words))
-#
-# # remove duplicates
-# classes = list(set(classes))
-#
-# # create an empty array for our output
-# output_empty = [0] * len(classes)
-#
-# # training set, bag of words for each topic
-# for doc in documents:
-#     # initialize our bag of words
-#     bag = []
-#     # list of tokenized words for the pattern
-#     pattern_words = doc[0]
-#     # stem each word
-#     pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
-#     # create our bag of words array
-#     for w in words:
-#         bag.append(1) if w in pattern_words else bag.append(0)
-#
-#     training.append(bag)
-#     # output is a '0' for each tag and '1' for current tag
-#     output_row = list(output_empty)
-#     output_row[classes.index(doc[1])] = 1
-#     output.append(output_row)
-#
-#
-# # compute sigmoid nonlinearity
-# def sigmoid(x):
-#     output = 1 / (1 + np.exp(-x))
-#     return output
-#
-#
-# # convert output of sigmoid function to its derivative
-# def sigmoid_output_to_derivative(output):
-#     return output * (1 - output)
-#
-#
-# def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout_percent=0.5):
-#     print ("Training with %s neurons, alpha:%s, dropout:%s %s" % (hidden_neurons, str(alpha), dropout, dropout_percent if dropout else '') )
-#     # print ("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X),len(X[0]),1, len(classes)) )
-#     np.random.seed(1)
-#
-#     last_mean_error = 1
-#     # randomly initialize our weights with mean 0
-#     synapse_0 = 2 * np.random.random((len(X[0]), hidden_neurons)) - 1
-#     synapse_1 = 2 * np.random.random((hidden_neurons, len(classes))) - 1
-#
-#     prev_synapse_0_weight_update = np.zeros_like(synapse_0)
-#     prev_synapse_1_weight_update = np.zeros_like(synapse_1)
-#
-#     synapse_0_direction_count = np.zeros_like(synapse_0)
-#     synapse_1_direction_count = np.zeros_like(synapse_1)
-#
-#     for j in iter(range(epochs + 1)):
-#
-#         # Feed forward through layers 0, 1, and 2
-#         layer_0 = X
-#         layer_1 = sigmoid(np.dot(layer_0, synapse_0))
-#
-#         if (dropout):
-#             layer_1 *= np.random.binomial([np.ones((len(X), hidden_neurons))], 1 - dropout_percent)[0] * (
-#             1.0 / (1 - dropout_percent))
-#
-#         layer_2 = sigmoid(np.dot(layer_1, synapse_1))
-#
-#         # how much did we miss the target value?
-#         layer_2_error = y - layer_2
-#
-#         if (j % 10000) == 0 and j > 5000:
-#             # if this 10k iteration's error is greater than the last iteration, break out
-#             if np.mean(np.abs(layer_2_error)) < last_mean_error:
-#                 print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
-#                 last_mean_error = np.mean(np.abs(layer_2_error))
-#             else:
-#                 print("break:", np.mean(np.abs(layer_2_error)), ">", last_mean_error)
-#                 break
-#
-#         # in what direction is the target value?
-#         # were we really sure? if so, don't change too much.
-#         layer_2_delta = layer_2_error * sigmoid_output_to_derivative(layer_2)
-#
-#         # how much did each l1 value contribute to the l2 error (according to the weights)?
-#         layer_1_error = layer_2_delta.dot(synapse_1.T)
-#
-#         # in what direction is the target l1?
-#         # were we really sure? if so, don't change too much.
-#         layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
-#
-#         synapse_1_weight_update = (layer_1.T.dot(layer_2_delta))
-#         synapse_0_weight_update = (layer_0.T.dot(layer_1_delta))
-#
-#         if (j > 0):
-#             synapse_0_direction_count += np.abs(
-#                 ((synapse_0_weight_update > 0) + 0) - ((prev_synapse_0_weight_update > 0) + 0))
-#             synapse_1_direction_count += np.abs(
-#                 ((synapse_1_weight_update > 0) + 0) - ((prev_synapse_1_weight_update > 0) + 0))
-#
-#         synapse_1 += alpha * synapse_1_weight_update
-#         synapse_0 += alpha * synapse_0_weight_update
-#
-#         prev_synapse_0_weight_update = synapse_0_weight_update
-#         prev_synapse_1_weight_update = synapse_1_weight_update
-#
-#     now = datetime.datetime.now()
-#
-#     # persist synapses
-#     synapse = {'synapse0': synapse_0.tolist(), 'synapse1': synapse_1.tolist(),
-#                'datetime': now.strftime("%Y-%m-%d %H:%M"),
-#                'words': words,
-#                'classes': classes
-#                }
-#     synapse_file = 'result.json'
-#
-#     with open(synapse_file, 'w') as outfile:
-#         json.dump(synapse, outfile, indent=4, sort_keys=True)
-#     print("saved synapses to:", synapse_file)
-#
-#
-# X = np.array(training)
-# y = np.array(output)
-#
-# start_time = time.time()
-#
-# train(X, y, hidden_neurons=20, alpha=0.01, epochs=200000, dropout=False, dropout_percent=0.2)
-#
-# elapsed_time = time.time() - start_time
-# print("processing time:", elapsed_time, "seconds")
+with open('output3.json') as data_file:
+ jsonFile = json.load(data_file)
+ finalJson = finalJson + [([jsonFile] + ['52.441990, -1.935825'])]
+
+with open('output4.json') as data_file:
+ jsonFile = json.load(data_file)
+ finalJson = finalJson + [([jsonFile] + ['52.445742, -1.888704'])]
+
+with open('output5.json') as data_file:
+ jsonFile = json.load(data_file)
+ finalJson = finalJson + [([jsonFile] + ['52.481826, -1.756439'])]
+
+
+
+#print(finalJson)
+
+#savedArray.append([coordinate, reader])
+
+for a in finalJson:
+    for row in a[0]:
+        if row[0] != '' and row[1] != '':
+            training_data.append({'class': a[1], 'topic': row[0]})
+
+# loop through each topic in our training data
+for pattern in training_data:
+    # tokenize each word in the topic
+    w = nltk.word_tokenize(pattern['topic'])
+    # add to our words list
+    words.extend(w)
+    # add to documents in our corpus
+    documents.append((w, pattern['class']))
+    # add to our classes list
+    if pattern['class'] not in classes:
+        classes.append(pattern['class'])
+
+# stem and lower each word and remove duplicates
+words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
+words = list(set(words))
+
+# remove duplicates
+classes = list(set(classes))
+
+# create an empty array for our output
+output_empty = [0] * len(classes)
+
+# training set, bag of words for each topic
+for doc in documents:
+    # initialize our bag of words
+    bag = []
+    # list of tokenized words for the pattern
+    pattern_words = doc[0]
+    # stem each word
+    pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+    # create our bag of words array
+    for w in words:
+        bag.append(1) if w in pattern_words else bag.append(0)
+
+    training.append(bag)
+    # output is a '0' for each tag and '1' for current tag
+    output_row = list(output_empty)
+    output_row[classes.index(doc[1])] = 1
+    output.append(output_row)
+
+
+# compute sigmoid nonlinearity
+def sigmoid(x):
+    output = 1 / (1 + np.exp(-x))
+    return output
+
+
+# convert output of sigmoid function to its derivative
+def sigmoid_output_to_derivative(output):
+    return output * (1 - output)
+
+
+def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout_percent=0.5):
+    print ("Training with %s neurons, alpha:%s, dropout:%s %s" % (hidden_neurons, str(alpha), dropout, dropout_percent if dropout else '') )
+    # print ("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X),len(X[0]),1, len(classes)) )
+    np.random.seed(1)
+
+    last_mean_error = 1
+    # randomly initialize our weights with mean 0
+    synapse_0 = 2 * np.random.random((len(X[0]), hidden_neurons)) - 1
+    synapse_1 = 2 * np.random.random((hidden_neurons, len(classes))) - 1
+
+    prev_synapse_0_weight_update = np.zeros_like(synapse_0)
+    prev_synapse_1_weight_update = np.zeros_like(synapse_1)
+
+    synapse_0_direction_count = np.zeros_like(synapse_0)
+    synapse_1_direction_count = np.zeros_like(synapse_1)
+
+    for j in iter(range(epochs + 1)):
+
+        # Feed forward through layers 0, 1, and 2
+        layer_0 = X
+        layer_1 = sigmoid(np.dot(layer_0, synapse_0))
+
+        if (dropout):
+            layer_1 *= np.random.binomial([np.ones((len(X), hidden_neurons))], 1 - dropout_percent)[0] * (
+            1.0 / (1 - dropout_percent))
+
+        layer_2 = sigmoid(np.dot(layer_1, synapse_1))
+
+        # how much did we miss the target value?
+        layer_2_error = y - layer_2
+
+        if (j % 10000) == 0 and j > 5000:
+            # if this 10k iteration's error is greater than the last iteration, break out
+            if np.mean(np.abs(layer_2_error)) < last_mean_error:
+                print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
+                last_mean_error = np.mean(np.abs(layer_2_error))
+            else:
+                print("break:", np.mean(np.abs(layer_2_error)), ">", last_mean_error)
+                break
+
+        # in what direction is the target value?
+        # were we really sure? if so, don't change too much.
+        layer_2_delta = layer_2_error * sigmoid_output_to_derivative(layer_2)
+
+        # how much did each l1 value contribute to the l2 error (according to the weights)?
+        layer_1_error = layer_2_delta.dot(synapse_1.T)
+
+        # in what direction is the target l1?
+        # were we really sure? if so, don't change too much.
+        layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
+
+        synapse_1_weight_update = (layer_1.T.dot(layer_2_delta))
+        synapse_0_weight_update = (layer_0.T.dot(layer_1_delta))
+
+        if (j > 0):
+            synapse_0_direction_count += np.abs(
+                ((synapse_0_weight_update > 0) + 0) - ((prev_synapse_0_weight_update > 0) + 0))
+            synapse_1_direction_count += np.abs(
+                ((synapse_1_weight_update > 0) + 0) - ((prev_synapse_1_weight_update > 0) + 0))
+
+        synapse_1 += alpha * synapse_1_weight_update
+        synapse_0 += alpha * synapse_0_weight_update
+
+        prev_synapse_0_weight_update = synapse_0_weight_update
+        prev_synapse_1_weight_update = synapse_1_weight_update
+
+    now = datetime.datetime.now()
+
+    # persist synapses
+    synapse = {'synapse0': synapse_0.tolist(), 'synapse1': synapse_1.tolist(),
+               'datetime': now.strftime("%Y-%m-%d %H:%M"),
+               'words': words,
+               'classes': classes
+               }
+    synapse_file = 'result.json'
+
+    with open(synapse_file, 'w') as outfile:
+        json.dump(synapse, outfile, indent=4, sort_keys=True)
+    print("saved synapses to:", synapse_file)
+
+
+X = np.array(training)
+y = np.array(output)
+
+start_time = time.time()
+
+train(X, y, hidden_neurons=20, alpha=0.01, epochs=200000, dropout=False, dropout_percent=0.2)
+
+elapsed_time = time.time() - start_time
+print("processing time:", elapsed_time, "seconds")
