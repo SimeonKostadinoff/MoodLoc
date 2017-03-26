@@ -1,29 +1,36 @@
 from django.shortcuts import render
 import tweepy
 
+
 # Create your views here.
 
 def tweets(request):
     '''Dsiplay all tweets'''
 
-def base_page():
-	'''Tokens go here'''
-	auth = tweepy.OAuthHandler('s50kOqoGiWSKWWM2ivCz7rcOe', 'N4SAbdjVIHMZWcWT6HPaysyKX9rN5tjKyPoC6IID49NdiDlS4d')
-	auth.set_access_token('338335567-3mqDJ2s2Gz0D9wFd52sLTcpD2hfCo27IVMSn8He8', 'SbgR8QCBMVuIXQ7C9XKmbDfgd4cnvwMI9rP3OTyDwo7ZK')
 
-	api = tweepy.API(auth)
+def base_page(radius, coordinates):
+    '''Tokens go here'''
+    auth = tweepy.OAuthHandler('jYyyQWZqGXerv4hQ8C0zUhCuf', 'k8a1gjF8iHDwMFn8xkofvTUTt5zjWgMDjmJhCGn3Oxaei7W5aF')
+    auth.set_access_token('845836175738900480-Xoqdks9tLZabTNHzpD9nn43IgsKrC8K',
+                          'AKDly5aaRlcJejNCjrH1mlgQJ62EfmVUxWcYDx9AWVrv9')
 
-	tweetArray = []
-	
-	for tweet in tweepy.Cursor(api.search, geocode='51.5073,-0.1277,50km').items(20):
-			tweet = tweet.text.encode('utf-8', 'ignore')
-			#print(tweet)
-			tweetArray.append(tweet)
-		
-	return tweetArray
-	
-	#return render(request, 'index.html') # render home page
+    api = tweepy.API(auth)
+
+    tweetArray = []
+    all_tweets = tweepy.Cursor(api.search, geocode=coordinates + ',' + str(radius) + "km").items(1000)
+    for tweet in all_tweets:
+        tweet = tweet.text.encode('utf-8', 'ignore')
+        tweetArray.append(tweet)
+
+    # tweetString = ' '.join(tweetArray)
+
+    return tweetArray
+
+
+# return tweetString
+
+# return render(request, 'index.html') # render home page
 
 if __name__ == "__main__":
-	#request = 1
-	base_page()
+    # request = 1
+    base_page(5)
