@@ -5,15 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>MoodLoc</title>
+    <link href="{% static '/css/styles.css' %}" rel="stylesheet">
 </head>
-<body>
-<div id="home"></div>
-
+<body style="background-color: dimgrey">
+<div id="home" style="width: 100%; height: 780px;"></div>
 
 <!-- jQuery -->
 <script src="{% static '/js/jquery.min.js' %}"></script>
 
 <!-- React -->
+
 <script src="{% static '/build/bundles/local/vendors.js' %}"></script>
 <script src="{% static '/build/bundles/local/home.js' %}"></script>
 
