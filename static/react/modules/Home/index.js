@@ -1,10 +1,8 @@
 import React, {Component} from "react"
 import { render } from 'react-dom';
-
-const element = <h1>Hello, world</h1>;
+import SimpleMapExample from "./components/SimpleMapExample"
 
 render(
-  element,
+  <SimpleMapExample></SimpleMapExample>,
   document.getElementById('home')
 );
-
