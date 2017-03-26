@@ -1,0 +1,51 @@
+{
+  "name": "moodloc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BrumHack Team",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "json-loader": "^0.5.4",
+    "react-textarea-autosize": "^4.0.5",
+    "uglify": "^0.1.5",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0",
+    "webpack": "^1.13.2",
+    "webpack-bundle-tracker": "0.0.93"
+  },
+  "dependencies": {
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-runtime": "^6.23.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "jquery": "^3.1.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-google-maps": "^6.0.1",
+    "react-notification": "^6.2.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^4.0.6",
+    "react-star-rating": "^1.4.2",
+    "react-textarea-autosize": "^4.0.5",
+    "react-world-map": "^1.0.13",
+    "redux": "^3.5.2",
+    "redux-form": "^6.1.0",
+    "redux-thunk": "^2.1.0",
+    "uglify": "^0.1.5"
+  }
+}
