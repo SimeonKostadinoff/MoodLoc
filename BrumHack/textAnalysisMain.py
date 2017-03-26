@@ -6,17 +6,18 @@ from watson_developer_cloud import AlchemyLanguageV1
 alchemy_language = AlchemyLanguageV1(api_key='2233ce8c0f1dbea2f9da6e3a2decf0bd7f5eb6ed')
 
 radius = 5    
-currentRadius = (radius*0.20)	
+currentRadius = (radius*0.50)	
 
 fields = []
 relevanceValue = []	
 tweets = []	
+savedTweets = []
 	
 while(currentRadius <= radius):
 	tweets = views.base_page(currentRadius)
 		
 	for tweet in tweets:
-		if tweet not in tweets:
+		if tweet not in savedTweets:
 			print(tweet)
 
 			try:
@@ -43,14 +44,14 @@ while(currentRadius <= radius):
 			except:
 				print(" ")
 			
-			currentRadius = currentRadius + (radius*0.20)
-			tweets.append(tweet)
+			currentRadius = currentRadius + (radius*0.50)
+			savedTweets.append(tweet)
 
 #create two dimensional array			
 h = len(fields)		
 Matrix = []
 	
-for index in range(0, (h-1)):
+for index in range(0, h):
 	Matrix.append([fields[index], relevanceValue[index]])
 
 #normalisation of data
@@ -58,31 +59,35 @@ for index in range(0, (h-1)):
 #mark each subsequent repeated field name with 0
 
 relevantFields = []
+i = 1
 
-for index in range(0, (h-1)):
+for index in range(0, h):
 	if (Matrix[index][0] != 0):
-		sum = Matrix[index][1]
+		sum = float(Matrix[index][1])
 	
-		for index2 in range(index+1, (h-1)):
+		for index2 in range(index+1, h):
 			if (Matrix[index2][0] == Matrix[index][0]):
-				sum += Matrix[index2][1]
+				sum += float(Matrix[index2][1])
+				#print(sum)
 				Matrix[index2][0] = 0
 				
 		relevantFields.append([Matrix[index][0], sum])
-				
+		print(Matrix[index][0] + " " + str(sum))
+		i += 1
+		
 #sort list
-for index in range(1, (h-1)):
-	currentValue = int(Matrix[index][1])
-	tmpString = Matrix[index][0]
-	position = index
+for index2 in range(1, (i-1)):
+	currentValue = float(relevantFields[index2][1])
+	tmpString = relevantFields[index2][0]
+	position = index2
 	
-	while position > 0 and Matrix[position-1][1] > currentValue:
-		Matrix[position][0] = Matrix[position-1][0]
-		Matrix[position][1] = Matrix[position-1][1]
+	while position > 0 and relevantFields[position-1][1] > currentValue:
+		relevantFields[position][0] = relevantFields[position-1][0]
+		relevantFields[position][1] = relevantFields[position-1][1]
 		position = position-1
 		
-	Matrix[position][1] = currentValue
-	Matrix[position][0] = tmpString
+	relevantFields[position][1] = currentValue
+	relevantFields[position][0] = tmpString
 		
-for index in range(0, (h-1)):
-	print(Matrix[index][0] + " " + Matrix[index][1])
+for index3 in range(0, (i-1)):
+	print(relevantFields[index3][0] + " " + str(relevantFields[index3][1]))
