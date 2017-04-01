@@ -34,7 +34,6 @@ def base_page(request):
 
 
 def main(request):
-   print("here")
    sentence = request.GET.get('sentance')  # get the 'org_id' passed as get request
    result = ''
    if sentence:
