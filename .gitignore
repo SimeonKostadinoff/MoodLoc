@@ -1,0 +1,11 @@
+
+moodloc/__pycache__/
+
+BrumHack/__pycache__/
+
+moodloc/migrations/__pycache__/
+
+static/build/bundles/local/
+
+Static/node_modules
+static/webpack-stats-local\.json
