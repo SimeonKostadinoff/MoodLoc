@@ -10,7 +10,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 
 
-import * as reducers from "./reducers"
+import * as reducers from "./reducers/index"
 
 import HomeContainer from './containers/HomeContainer';
 

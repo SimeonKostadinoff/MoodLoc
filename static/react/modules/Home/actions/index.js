@@ -31,28 +31,12 @@ export function loadLocations() {
         let url = `http://127.0.0.1:8000/classify/?sentance=`;
         if(search) {
             url+=`${search}`
+            $.get(url, data => {
+                dispatch(showLocationsResult(data));
+            });
         } else {
             url+=""
+            dispatch(showLocationsResult({result:[]}));
         }
-
-        $.get(url, data => {
-            console.log("DATA: ", data);
-            dispatch(showLocationsResult(data));
-        });
-        /*let data = [{
-            lat: 53.690201 + parseInt(search),
-            lng: -1.757813,
-            search: search,
-            percentage: 0.7,
-            key: '0',
-        },
-        {
-            lat: 54.690201 + parseInt(search),
-            lng: -1.757813,
-            search: search,
-            percentage: 0.3,
-            key: '1',
-        }];*/
-        //dispatch(showLocationsResult(data));
     }
 }

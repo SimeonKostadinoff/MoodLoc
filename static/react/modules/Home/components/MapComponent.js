@@ -19,21 +19,21 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
     defaultZoom={6}
     defaultCenter={{ lat: 53.690201, lng: -1.757813 }}
   >
-      {props.data.result.map(value =>
-      <Marker position={new google.maps.LatLng(value[0].split(',')[0], value[0].split(',')[1])} icon={'https://thumb.ibb.co/nAjjfa/8m_OKjql_Imgur.png'} key={value[0].split(',')[0]}/>
+      {props.markers.result.map( (value, index) =>
+      <Marker position={new google.maps.LatLng(value[0].split(',')[0], value[0].split(',')[1])} icon={'https://thumb.ibb.co/nAjjfa/8m_OKjql_Imgur.png'} key={index}/>
     )}
   </GoogleMap>
 ));
 
-/* icon={'https://thumb.ibb.co/nAjjfa/8m_OKjql_Imgur.png'}
+/*
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
  */
 export default class MapComponent extends Component {
     constructor(props){
-        console.log("PROPS: ", props);
         super(props)
     }
   render() {
+        console.log("markers: ", this.props.data);
     return (
       <SimpleMapExampleGoogleMap
         containerElement={
@@ -42,7 +42,7 @@ export default class MapComponent extends Component {
         mapElement={
           <div style={{ height: `100%` }} />
         }
-        data={this.props.data}
+        markers={this.props.data}
       />
     );
   }
